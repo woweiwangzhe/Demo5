@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.1//EN"
+        "http://tuckey.org/res/dtds/urlrewrite3.1.dtd">
+
+<urlrewrite>
+	<rule>
+		<from>^/gl/detail/(.*).html</from>
+		<to>/gl/detail/$1</to>
+	</rule>
+	
+	<rule>
+		<from>^/welcome.html</from>
+		<to>/gl</to>
+	</rule>
+	
+	<rule>
+		<from>^/company/detail/(.*).html</from>
+		<to>/company/detail/$1</to>
+	</rule>
+	
+	<rule>
+		<from>^/welcome.html</from>
+		<to>/company</to>
+	</rule>
+	
+	<rule>
+		<from>^/goods/detail/(.*).html</from>
+		<to>/goods/detail/$1</to>
+	</rule>
+	
+	<rule>
+		<from>^/welcome.html</from>
+		<to>/goods</to>
+	</rule>
+</urlrewrite>

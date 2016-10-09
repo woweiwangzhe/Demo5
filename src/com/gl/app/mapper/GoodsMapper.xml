@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gl.app.mapper.GoodsMapper">
+
+	<resultMap id="result" type="goods">
+		<result property="id" column="id" />
+		<result property="shopname" column="shopname" />
+		<result property="size" column="size" />
+		<result property="price" column="price" />
+		<result property="number" column="number" />
+		<result property="type" column="type" />
+		<result property="createtime" column="createtime" />
+		
+	</resultMap>
+
+	<insert id="addGoods" parameterType="goods">
+		INSERT INTO goods
+		(shopname,size,price,number,type,createtime,companyid)
+		VALUE
+		(#{shopname},#{size},#{price},#{number},#{type},#{createtime},#{companyid})
+	</insert>
+
+
+	<select id="getAllGoods" resultMap="result">
+		SELECT id,shopname,size,price,number,type,createtime
+		FROM goods order by id  desc
+	</select>
+
+	<select id="getGoodsById" parameterType="int" resultMap="result">
+		SELECT id, shopname,size,price,number,type,createtime
+		FROM goods where id =
+		#{companyid};
+	</select>
+
+	<delete id="deleteById" parameterType="int">
+		DELETE FROM
+		goods
+		WHERE ID = #{id}
+	</delete>
+
+	<update id="update" parameterType="goods">
+		UPDATE  goods
+		<set>
+			<if test="shopname != null ">shopname = #{shopname},</if>
+			<if test="size != null ">size = #{size},</if>
+			<if test="price != null ">price = #{price},</if>
+			<if test="number != null ">number = #{number},</if>
+			<if test="type != null ">type = #{type},</if>
+			
+		</set>
+		WHERE ID = #{id}
+	</update>
+	<select id="getAllGoodsCount" resultType="long">
+		SELECT COUNT(*) FROM
+		goods ;
+	</select>
+	
+	<select id="getAllGoodsCountByid" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM goods where companyid = #{companyid};
+	</select>
+	<select id="getAllGoodsCountlike" resultType="INTEGER" parameterType="java.util.Map">
+		SELECT COUNT(*) FROM goods
+		<where>
+		 companyid = #{companyid}
+		    <if test="shopname != null and shopname != ''"> and shopname like CONCAT('%','${shopname}','%' ) </if>
+		</where>
+	</select>
+	<select id="getGoodssByid" parameterType="page" resultMap="result">
+		SELECT id,
+		shopname,size,price,number,type,createtime
+		FROM goods limit #{startPos},
+		#{pageSize};
+	</select>
+	<select id="getallGoodsByid" parameterType="java.util.Map" resultMap="result">
+		SELECT id,
+		shopname,size,price,number,type,createtime
+		FROM goods 
+		<where>
+		 companyid = #{companyid}
+		    <if test="shopname != null and shopname != ''">  and shopname like CONCAT('%','${shopname}','%' )</if>
+		</where>	   
+	     order by id  desc
+ 		limit #{startPos},#{pageSize} 
+	</select>
+	
+	<select id="getGoodss" parameterType="page" resultMap="result">
+		SELECT id,
+		shopname,size,price,number,type,createtime
+		FROM goods order by id desc limit #{startPos},
+		#{pageSize};
+	</select>
+
+
+</mapper>

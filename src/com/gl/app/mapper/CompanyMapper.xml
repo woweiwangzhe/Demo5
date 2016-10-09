@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gl.app.mapper.CompanyMapper">
+
+	<resultMap id="result" type="company">
+		<result property="id" column="id" />
+		<result property="companyname" column="companyname" />
+		<result property="address" column="address" />
+		<result property="tel" column="tel" />
+		<result property="dept" column="dept" />
+		<result property="employ" column="employ" />
+	</resultMap>
+
+	<insert id="addCompany" parameterType="company">
+		INSERT INTO company
+		(companyname,address,tel,dept,employ)
+		VALUE
+		(#{companyname},#{address},#{tel},#{dept},#{employ})
+	</insert>
+
+
+	<select id="getAllCompany" resultMap="result">
+		SELECT id,companyname,address,tel,dept,employ
+		FROM company  order by id  desc
+	</select>
+
+	<select id="getCompanyById" parameterType="int" resultMap="result">
+		SELECT id, companyname,address,tel,dept,employ
+		FROM company where id =
+		#{id};
+	</select>
+
+	<delete id="deleteById" parameterType="int">
+		DELETE FROM
+		company
+		WHERE ID = #{id}
+	</delete>
+
+	<update id="update" parameterType="company">
+		UPDATE  company
+		<set>
+			<if test="companyname != null ">companyname = #{companyname},</if>
+			<if test="address != null ">address = #{address},</if>
+			<if test="tel != null ">tel = #{tel},</if>
+			<if test="dept != null ">dept = #{dept},</if>
+			<if test="employ != null ">employ = #{employ}</if>
+		</set>
+		WHERE ID = #{id}
+	</update>
+	<select id="getAllCompanyCount" parameterType="java.util.Map" resultType="INTEGER">
+		SELECT COUNT(*) FROM
+		company 
+		<where>
+		    <if test="companyname != null and companyname != ''"> companyname like CONCAT('%','${companyname}','%' )</if>
+		</where>
+	</select>
+
+	<select id="getCompanys" parameterType="page" resultMap="result">
+		SELECT id,
+		companyname,address,tel,dept,employ
+		FROM company  order by id desc limit #{startPos},
+		#{pageSize}
+	</select>
+	
+	<select id="getCompanyslike" parameterType="java.util.Map" resultMap="result">
+		SELECT id,
+		companyname,address,tel,dept,employ
+		FROM company 
+		<where>
+		    <if test="companyname != null and companyname != ''"> companyname like CONCAT('%','${companyname}','%' )</if>
+		</where>	   
+	     order by id  desc
+ 		limit #{startPos},#{pageSize} 
+	</select>
+
+</mapper>
