@@ -7,9 +7,7 @@ import com.google.common.collect.Lists;
 
 public class Page <T>implements Serializable {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 145646464664632L;
 
 	private int pageNow = 1; // 当前页数
