@@ -10,7 +10,7 @@ public class Page <T>implements Serializable {
 	
 	private static final long serialVersionUID = 145646464664632L;
 
-	private int pageNow = 1; //当前页数
+	private int pageNow = 1; //	当前页数
 
 	private int pageSize = 8; // 每页显示记录的条数
 
